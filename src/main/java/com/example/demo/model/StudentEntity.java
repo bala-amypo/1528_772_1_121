@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class StudentModel {
+public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,13 +45,13 @@ public class StudentModel {
     public void setYear(int year) {
         this.year = year;
     }
-    public StudentModel(Long id, String rollNo, String name, String department, int year) {
+    public StudentEntity(Long id, String rollNo, String name, String department, int year) {
         this.id = id;
         this.rollNo = rollNo;
         this.name = name;
         this.department = department;
         this.year = year;
     }
-    public StudentModel() {
+    public StudentEntity() {
     } 
 }
