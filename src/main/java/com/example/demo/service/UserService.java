@@ -8,6 +8,6 @@ import com.example.demo.model.User;
 
 @Service
 public interface UserService  {
-    public User register(User user);
-    public Optional<User> findbyEmail(String email);
+    User register(User user);
+    Optional<User> findbyemail(String email);
 }
