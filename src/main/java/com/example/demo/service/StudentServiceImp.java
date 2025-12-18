@@ -14,8 +14,8 @@ public class StudentServiceImp implements StudentService {
     StudentRepository studrepo;
 
     @Override
-    public Student addstudent(Student st) {
-        return studrepo.save(st);
+    public Student addstudent(Student student) {
+        return studrepo.save(student);
     }
 
     public List<Student> getallstudents(){
