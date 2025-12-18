@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.StudentEntity;
+import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 
 @Service
@@ -14,11 +14,11 @@ public class StudentServiceImp implements StudentService {
     StudentRepository studrepo;
 
     @Override
-    public StudentEntity addstudent(StudentEntity st) {
+    public Student addstudent(Student st) {
         return studrepo.save(st);
     }
 
-    public List<StudentEntity> getallstudents(){
+    public List<Student> getallstudents(){
         return studrepo.findAll();
     }
 }

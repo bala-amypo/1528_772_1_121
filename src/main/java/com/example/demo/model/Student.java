@@ -45,13 +45,13 @@ public class StudentEntity {
     public void setYear(int year) {
         this.year = year;
     }
-    public StudentEntity(Long id, String rollNo, String name, String department, int year) {
+    public Student(Long id, String rollNo, String name, String department, int year) {
         this.id = id;
         this.rollNo = rollNo;
         this.name = name;
         this.department = department;
         this.year = year;
     }
-    public StudentEntity() {
+    public Student() {
     } 
 }

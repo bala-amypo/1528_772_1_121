@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.StudentEntity;
+import com.example.demo.model.Student;
 
 @Service
 public interface StudentService {
-    StudentEntity addstudent(StudentEntity st);
-    List<StudentEntity> getallstudents();
+    Student addstudent(Student st);
+    List<Student> getallstudents();
 }
 
 
