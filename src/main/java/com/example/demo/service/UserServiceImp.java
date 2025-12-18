@@ -18,8 +18,8 @@ public class UserServiceImp implements UserService {
         return userRepo.save(user);
     }
 
-    public Optional<User> findbyemail(String Email){
-        return userRepo.findbyEmail(Email);
+    public Optional<User> findbyemail(String email){
+        return userRepo.findbyEmail(email);
     }
 
 }
