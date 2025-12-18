@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.StudentEntity;
+import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
 
 @RestController
@@ -17,12 +17,12 @@ public class StudentController {
     StudentService st;
 
     @PostMapping("/addstudent")
-    public StudentEntity addstud(@RequestBody StudentEntity student){
+    public Student addstud(@RequestBody Student student){
         return st.addstudent(student);
     }
     
     @GetMapping("/getallstudents")
-    public List<StudentEntity> getstud(){
+    public List<Student> getstud(){
         return st.getallstudents();
     }
 }
