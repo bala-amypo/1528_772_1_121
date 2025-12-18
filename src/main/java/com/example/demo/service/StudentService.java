@@ -8,7 +8,7 @@ import com.example.demo.model.Student;
 
 @Service
 public interface StudentService {
-    Student addstudent(Student st);
+    Student addstudent(Student student);
     List<Student> getallstudents();
 }
 
