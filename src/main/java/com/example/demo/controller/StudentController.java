@@ -17,12 +17,12 @@ public class StudentController {
     StudentService st;
 
     @PostMapping("/addstudent")
-    public StudentEntity addstudent(@RequestBody StudentEntity student){
+    public StudentEntity addstud(@RequestBody StudentEntity student){
         return st.addstudent(student);
     }
     
     @GetMapping("/getallstudents")
-    public List<StudentEntity> getallstudents(){
+    public List<StudentEntity> getstud(){
         return st.getallstudents();
     }
 }
