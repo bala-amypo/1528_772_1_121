@@ -3,19 +3,15 @@ package com.example.demo.service;
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,8 +24,6 @@ public class UserServiceImpl implements UserService {
         if (user.getRole() == null) {
             user.setRole("STAFF");
         }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
     }
