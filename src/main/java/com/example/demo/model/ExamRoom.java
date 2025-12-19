@@ -1,58 +1,77 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
 public class ExamRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
-    private String rollnumber;
+    private String roomNumber;
 
-    private String name;
-    private String department;
-    private Integer year;
-    public long getId() {
+    private Integer rows;
+    private Integer columns;
+    private Integer capacity;
+
+    // REQUIRED
+    public ExamRoom() {
+    }
+
+    public ExamRoom(Long id, String roomNumber, Integer rows, Integer columns) {
+        this.id = id;
+        this.roomNumber = roomNumber;
+        this.rows = rows;
+        this.columns = columns;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void ensureCapacityMatches() {
+        if (rows != null && columns != null) {
+            this.capacity = rows * columns;
+        }
+    }
+
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
-    public String getRollnumber() {
-        return rollnumber;
+
+    public String getRoomNumber() {
+        return roomNumber;
     }
-    public void setRollnumber(String rollnumber) {
-        this.rollnumber = rollnumber;
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
-    public String getName() {
-        return name;
+
+    public Integer getRows() {
+        return rows;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
-    public String getDepartment() {
-        return department;
+
+    public Integer getColumns() {
+        return columns;
     }
-    public void setDepartment(String department) {
-        this.department = department;
+
+    public void setColumns(Integer columns) {
+        this.columns = columns;
     }
-    public Integer getYear() {
-        return year;
+
+    public Integer getCapacity() {
+        return capacity;
     }
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-    public ExamRoom(long id, String rollnumber, String name, String department, Integer year) {
-        this.id = id;
-        this.rollnumber = rollnumber;
-        this.name = name;
-        this.department = department;
-        this.year = year;
-    }
-    public ExamRoom() {
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 }
