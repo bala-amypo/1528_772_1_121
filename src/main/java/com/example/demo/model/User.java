@@ -1,76 +1,62 @@
 package com.example.demo.model;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
-import jakarta.persistence.*;
-
-@Entity
-public class ExamRoom {
-
+@Entity 
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String name;
     @Column(unique = true)
-    private String roomNumber;
 
-    private Integer rows;
-    private Integer columns;
-    private Integer capacity;
-
-    public ExamRoom() {
-    }
-
-    public ExamRoom(Long id, String roomNumber, Integer rows, Integer columns) {
-        this.id = id;
-        this.roomNumber = roomNumber;
-        this.rows = rows;
-        this.columns = columns;
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void ensureCapacityMatches() {
-        if (rows != null && columns != null) {
-            this.capacity = rows * columns;
-        }
-    }
-
+    @Email
+    private String email;
+    private String password;
+    private String role;
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getName() {
+        return name;
     }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public Integer getRows() {
-        return rows;
+    public String getEmail() {
+        return email;
     }
-
-    public void setRows(Integer rows) {
-        this.rows = rows;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
-    public Integer getColumns() {
-        return columns;
+    public String getPassword() {
+        return password;
     }
-
-    public void setColumns(Integer columns) {
-        this.columns = columns;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public Integer getCapacity() {
-        return capacity;
+    public String getRole() {
+        return role;
     }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
+    public void setRole(String role) {
+        this.role = role;
     }
+    public User(Long id, String name, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+    public User() {
+    }
+    
+    
 }
