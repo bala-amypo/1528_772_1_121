@@ -17,7 +17,7 @@ public class Student {
     private String rollNo;
     private String name;
     private String department;
-    private int year;
+    private Integer year;
 
     public Long getId() {
         return id;
