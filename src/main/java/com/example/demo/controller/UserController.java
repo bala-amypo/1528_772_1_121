@@ -1,25 +1,28 @@
 package com.example.demo.controller;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
-public class UserController {
-    @Autowired
-    UserService us;
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
+    // CREATE
     @PostMapping("/register")
-    public User add(@RequestBody User user)
-    {
-        return us.register(user);
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
-    @PostMapping("/login")
-    public Optional<User> find(@RequestBody String email)
-    {
-        return us.findbyemail(email);
+
+    // READ
+    @GetMapping("/{email}")
+    public User getByEmail(@PathVariable String email) {
+        return userService.findByEmail(email);
     }
-    
 }

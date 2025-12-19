@@ -1,21 +1,42 @@
 package com.example.demo.service;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
+import com.example.demo.exception.ApiException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 @Service
-public class UserServiceImp implements UserService {
-    @Autowired
-    UserRepository us;
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
-    public User register(User user)
-    {
-        return us.save(user);
+    public User register(User user) {
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new ApiException("Email already exists");
+        }
+
+        if (user.getRole() == null) {
+            user.setRole("STAFF");
+        }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userRepository.save(user);
     }
-    public Optional<User> findbyemail(String email)
-    {
-        return us.findByEmail(email);
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException("User not found"));
     }
-    
 }
