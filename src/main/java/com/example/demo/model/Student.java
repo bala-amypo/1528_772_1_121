@@ -14,7 +14,7 @@ public class Student {
     private Long id;
 
     @Column(unique = true)
-    private String rollNo;
+    private String rollNumber;
     private String name;
     private String department;
     private Integer year;
@@ -25,10 +25,10 @@ public class Student {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getRollNo() {
+    public String getRollNumber() {
         return rollNo;
     }
-    public void setRollNo(String rollNo) {
+    public void setRollNumber(String rollNo) {
         this.rollNo = rollNo;
     }
     public String getName() {
@@ -46,10 +46,10 @@ public class Student {
     public int getYear() {
         return year;
     }
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
-    public Student(Long id, String rollNo, String name, String department, int year) {
+    public Student(Long id, String rollNo, String name, String department, Integer year) {
         this.id = id;
         this.rollNo = rollNo;
         this.name = name;
