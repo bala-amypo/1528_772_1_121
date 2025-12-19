@@ -16,7 +16,6 @@ public class ExamRoom {
     private Integer columns;
     private Integer capacity;
 
-    // REQUIRED
     public ExamRoom() {
     }
 
