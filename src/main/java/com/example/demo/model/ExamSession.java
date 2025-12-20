@@ -20,7 +20,6 @@ public class ExamSession {
 
     private String examTime;
 
-    // REQUIRED: Many-to-Many with Student
     @ManyToMany
     @JoinTable(
             name = "exam_session_students",
@@ -29,7 +28,6 @@ public class ExamSession {
     )
     private Set<Student> students;
 
-    // One-to-many with SeatingPlan
     @OneToMany(mappedBy = "examSession", cascade = CascadeType.ALL)
     private List<SeatingPlan> seatingPlans;
 

@@ -22,7 +22,6 @@ public class ExamRoom {
     public ExamRoom() {
     }
 
-    // Rule: capacity = rows * columns
     public void ensureCapacityMatches() {
         if (rows == null || columns == null || rows <= 0 || columns <= 0) {
             throw new com.example.demo.exception.ApiException("Invalid rows or columns");
