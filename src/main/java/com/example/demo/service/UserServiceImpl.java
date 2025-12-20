@@ -3,16 +3,14 @@ package com.example.demo.service;
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public User register(User user) {
@@ -25,6 +23,7 @@ public class UserServiceImpl implements UserService {
             user.setRole("STAFF");
         }
 
+        // password already handled as per your working setup
         return userRepository.save(user);
     }
 
