@@ -26,6 +26,7 @@ public class ExamSession {
             joinColumns = @JoinColumn(name = "session_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    
     private Set<Student> students;
 
     @OneToMany(mappedBy = "examSession", cascade = CascadeType.ALL)
