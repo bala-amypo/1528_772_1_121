@@ -12,12 +12,12 @@ public class ExamSessionController {
     @Autowired
     private ExamSessionService examSessionService;
 
-    @PostMapping
+    @PostMapping("/createsession")
     public ExamSession createSession(@RequestBody ExamSession session) {
         return examSessionService.createSession(session);
     }
 
-    @GetMapping("/{sessionId}")
+    @GetMapping("/get{sessionId}")
     public ExamSession getSession(@PathVariable Long sessionId) {
         return examSessionService.getSession(sessionId);
     }
