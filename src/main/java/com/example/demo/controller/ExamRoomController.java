@@ -14,7 +14,7 @@ public class ExamRoomController {
     @Autowired
     private ExamRoomService examRoomService;
 
-    @PostMapping("/addroom")
+    @PostMapping
     public ExamRoom addRoom(@RequestBody ExamRoom room) {
         return examRoomService.addRoom(room);
     }
