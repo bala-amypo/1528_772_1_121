@@ -19,7 +19,7 @@ public class ExamRoomController {
         return examRoomService.addRoom(room);
     }
 
-    @GetMapping("/getallroom")
+    @GetMapping
     public List<ExamRoom> getAllRooms() {
         return examRoomService.getAllRooms();
     }
