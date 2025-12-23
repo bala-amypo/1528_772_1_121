@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sessions")
+@RequestMapping("sessions")
 public class ExamSessionController {
 
     @Autowired
@@ -17,7 +17,7 @@ public class ExamSessionController {
         return examSessionService.createSession(session);
     }
 
-    @GetMapping("/{sessionId}")
+    @GetMapping("{sessionId}")
     public ExamSession getSession(@PathVariable Long sessionId) {
         return examSessionService.getSession(sessionId);
     }
