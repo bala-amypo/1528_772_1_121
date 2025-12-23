@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("rooms")
+@RequestMapping("/rooms")
 public class ExamRoomController {
 
     @Autowired
     private ExamRoomService examRoomService;
 
-    @PostMapping
+    @PostMapping("/addroom")
     public ExamRoom addRoom(@RequestBody ExamRoom room) {
         return examRoomService.addRoom(room);
     }
 
-    @GetMapping
+    @GetMapping("/getallroom")
     public List<ExamRoom> getAllRooms() {
         return examRoomService.getAllRooms();
     }

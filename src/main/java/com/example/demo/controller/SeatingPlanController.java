@@ -14,17 +14,17 @@ public class SeatingPlanController {
     @Autowired
     private SeatingPlanService seatingPlanService;
 
-    @PostMapping("generate/{sessionId}")
+    @PostMapping("/generate/{sessionId}")
     public SeatingPlan generatePlan(@PathVariable Long sessionId) {
         return seatingPlanService.generatePlan(sessionId);
     }
 
-    @GetMapping("{planId}")
+    @GetMapping("/{planId}")
     public SeatingPlan getPlan(@PathVariable Long planId) {
         return seatingPlanService.getPlan(planId);
     }
 
-    @GetMapping("session/{sessionId}")
+    @GetMapping("/session/{sessionId}")
     public List<SeatingPlan> getPlansBySession(@PathVariable Long sessionId) {
         return seatingPlanService.getPlansBySession(sessionId);
     }
