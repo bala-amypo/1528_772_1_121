@@ -43,18 +43,16 @@ public class SeatingPlan {
     public void setArrangementJson(String arrangementJson) { this.arrangementJson = arrangementJson; }
     public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private final SeatingPlan p = new SeatingPlan();
 
         public Builder id(Long id) { p.setId(id); return this; }
-        public Builder examSession(ExamSession s) { p.setExamSession(s); return this; }
-        public Builder room(ExamRoom r) { p.setRoom(r); return this; }
-        public Builder arrangementJson(String j) { p.setArrangementJson(j); return this; }
-        public Builder generatedAt(LocalDateTime t) { p.setGeneratedAt(t); return this; }
+        public Builder examSession(ExamSession examSession) { p.setExamSession(examSession); return this; }
+        public Builder room(ExamRoom room) { p.setRoom(room); return this; }
+        public Builder arrangementJson(String arrangementJson) { p.setArrangementJson(arrangementJson); return this; }
+        public Builder generatedAt(LocalDateTime generatedAt) { p.setGeneratedAt(generatedAt); return this; }
 
         public SeatingPlan build() { return p; }
     }

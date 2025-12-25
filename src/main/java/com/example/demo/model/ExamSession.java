@@ -33,18 +33,16 @@ public class ExamSession {
     public void setExamTime(String examTime) { this.examTime = examTime; }
     public void setStudents(Set<Student> students) { this.students = students; }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private final ExamSession s = new ExamSession();
 
         public Builder id(Long id) { s.setId(id); return this; }
-        public Builder courseCode(String c) { s.setCourseCode(c); return this; }
-        public Builder examDate(LocalDate d) { s.setExamDate(d); return this; }
-        public Builder examTime(String t) { s.setExamTime(t); return this; }
-        public Builder students(Set<Student> st) { s.setStudents(st); return this; }
+        public Builder courseCode(String courseCode) { s.setCourseCode(courseCode); return this; }
+        public Builder examDate(LocalDate examDate) { s.setExamDate(examDate); return this; }
+        public Builder examTime(String examTime) { s.setExamTime(examTime); return this; }
+        public Builder students(Set<Student> students) { s.setStudents(students); return this; }
 
         public ExamSession build() { return s; }
     }

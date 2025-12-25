@@ -8,4 +8,6 @@ public interface ExamRoomService {
     ExamRoom addRoom(ExamRoom room);
 
     List<ExamRoom> getAllRooms();
+
+    ExamRoom getRoom(Long id);
 }

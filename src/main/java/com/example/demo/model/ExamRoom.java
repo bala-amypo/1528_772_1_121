@@ -41,9 +41,7 @@ public class ExamRoom {
         }
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private final ExamRoom r = new ExamRoom();

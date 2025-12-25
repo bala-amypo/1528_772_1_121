@@ -31,9 +31,7 @@ public class Student {
     public void setDepartment(String department) { this.department = department; }
     public void setYear(Integer year) { this.year = year; }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private final Student s = new Student();

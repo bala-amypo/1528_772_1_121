@@ -16,6 +16,7 @@ public class User {
     private String email;
 
     private String password;
+
     private String role;
 
     public User() {}
@@ -32,9 +33,7 @@ public class User {
     public void setPassword(String password) { this.password = password; }
     public void setRole(String role) { this.role = role; }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private final User u = new User();
