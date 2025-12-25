@@ -14,47 +14,35 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final UserService service;
+    private final JwtTokenProvider jwt;
     private final BCryptPasswordEncoder encoder;
 
-    public AuthController(UserService userService,
-                          JwtTokenProvider jwtTokenProvider,
+    public AuthController(UserService service,
+                          JwtTokenProvider jwt,
                           BCryptPasswordEncoder encoder) {
-        this.userService = userService;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.service = service;
+        this.jwt = jwt;
         this.encoder = encoder;
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest request) {
-        User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setRole(request.getRole());
-        return userService.register(user);
+    public User register(@RequestBody RegisterRequest req) {
+        User u = new User();
+        u.setName(req.getName());
+        u.setEmail(req.getEmail());
+        u.setPassword(req.getPassword());
+        u.setRole(req.getRole());
+        return service.register(u);
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        User user = userService.findByEmail(request.getEmail());
-
-        if (!encoder.matches(request.getPassword(), user.getPassword())) {
+    public AuthResponse login(@RequestBody AuthRequest req) {
+        User u = service.findByEmail(req.getEmail());
+        if (!encoder.matches(req.getPassword(), u.getPassword())) {
             throw new ApiException("Invalid credentials");
         }
-
-        String token = jwtTokenProvider.generateToken(
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
-
-        return new AuthResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
+        String token = jwt.generateToken(u.getId(), u.getEmail(), u.getRole());
+        return new AuthResponse(token, u.getId(), u.getEmail(), u.getRole());
     }
 }

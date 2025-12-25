@@ -10,24 +10,24 @@ import java.util.List;
 @RequestMapping("/plans")
 public class SeatingPlanController {
 
-    private final SeatingPlanService service;
+    private final SeatingPlanService ctrl;
 
-    public SeatingPlanController(SeatingPlanService service) {
-        this.service = service;
+    public SeatingPlanController(SeatingPlanService ctrl) {
+        this.ctrl = ctrl;
     }
 
-    @PostMapping("/generate/{sessionId}")
-    public SeatingPlan generatePlan(@PathVariable Long sessionId) {
-        return service.generatePlan(sessionId);
+    @PostMapping("/{sessionId}")
+    public SeatingPlan create(@PathVariable Long sessionId) {
+        return ctrl.generatePlan(sessionId);
+    }
+
+    @GetMapping
+    public List<SeatingPlan> list() {
+        return ctrl.list();
     }
 
     @GetMapping("/{id}")
-    public SeatingPlan getPlan(@PathVariable Long id) {
-        return service.getPlan(id);
-    }
-
-    @GetMapping("/session/{sessionId}")
-    public List<SeatingPlan> getPlansBySession(@PathVariable Long sessionId) {
-        return service.getPlansBySession(sessionId);
+    public SeatingPlan get(@PathVariable Long id) {
+        return ctrl.getPlan(id);
     }
 }

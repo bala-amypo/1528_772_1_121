@@ -4,23 +4,30 @@ import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sessions")
 public class ExamSessionController {
 
-    private final ExamSessionService service;
+    private final ExamSessionService ctrl;
 
-    public ExamSessionController(ExamSessionService service) {
-        this.service = service;
+    public ExamSessionController(ExamSessionService ctrl) {
+        this.ctrl = ctrl;
     }
 
     @PostMapping
-    public ExamSession createSession(@RequestBody ExamSession session) {
-        return service.createSession(session);
+    public ExamSession create(@RequestBody ExamSession s) {
+        return ctrl.createSession(s);
+    }
+
+    @GetMapping
+    public List<ExamSession> list() {
+        return ctrl.list();
     }
 
     @GetMapping("/{id}")
-    public ExamSession getSession(@PathVariable Long id) {
-        return service.getSession(id);
+    public ExamSession get(@PathVariable Long id) {
+        return ctrl.getSession(id);
     }
 }
