@@ -18,6 +18,7 @@ public class ExamSessionServiceImpl implements ExamSessionService {
         StudentRepository studentRepository
     ) {
         this.repository = repository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     public ExamSession getSession(Long id) {
         return get(id);
     }
-    
+
     @Override
     public ExamSession get(Long id) {
         return repository.findById(id)
