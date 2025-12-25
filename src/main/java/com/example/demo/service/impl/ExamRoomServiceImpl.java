@@ -11,31 +11,29 @@ import java.util.List;
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
 
-    private final ExamRoomRepository examRoomRepository;
+    private final ExamRoomRepository repo;
 
-    public ExamRoomServiceImpl(ExamRoomRepository examRoomRepository) {
-        this.examRoomRepository = examRoomRepository;
+    public ExamRoomServiceImpl(ExamRoomRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public ExamRoom addRoom(ExamRoom room) {
-
-        if (room.getRows() == null || room.getColumns() == null
-                || room.getRows() <= 0 || room.getColumns() <= 0) {
-            throw new ApiException("Invalid rows or columns");
+    public ExamRoom add(ExamRoom room) {
+        if (repo.findByRoomNumber(room.getRoomNumber()).isPresent()) {
+            throw new ApiException("Room exists");
         }
-
-        if (examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()) {
-            throw new ApiException("Room number already exists");
-        }
-
         room.ensureCapacityMatches();
-
-        return examRoomRepository.save(room);
+        return repo.save(room);
     }
 
     @Override
-    public List<ExamRoom> getAllRooms() {
-        return examRoomRepository.findAll();
+    public List<ExamRoom> list() {
+        return repo.findAll();
+    }
+
+    @Override
+    public ExamRoom get(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ApiException("Room not found"));
     }
 }

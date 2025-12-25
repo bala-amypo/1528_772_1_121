@@ -11,32 +11,31 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentRepository studentRepository;
+    private final StudentRepository repo;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentServiceImpl(StudentRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public Student addStudent(Student student) {
-
-        if (student.getRollNumber() == null || student.getRollNumber().isEmpty()) {
-            throw new ApiException("Invalid student roll number");
+    public Student add(Student student) {
+        if (student.getRollNumber() == null) {
+            throw new ApiException("Invalid student");
         }
-
-        if (studentRepository.findByRollNumber(student.getRollNumber()).isPresent()) {
-            throw new ApiException("Roll number already exists");
+        if (repo.findByRollNumber(student.getRollNumber()).isPresent()) {
+            throw new ApiException("Roll number exists");
         }
-
-        if (student.getYear() == null || student.getYear() < 1 || student.getYear() > 5) {
-            throw new ApiException("Invalid year");
-        }
-
-        return studentRepository.save(student);
+        return repo.save(student);
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public List<Student> list() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Student get(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ApiException("Student not found"));
     }
 }
