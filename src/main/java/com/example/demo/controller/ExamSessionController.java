@@ -2,23 +2,32 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sessions")
 public class ExamSessionController {
 
-    @Autowired
-    private ExamSessionService examSessionService;
+    private final ExamSessionService service;
 
-    @PostMapping("/createsession")
-    public ExamSession createSession(@RequestBody ExamSession session) {
-        return examSessionService.createSession(session);
+    public ExamSessionController(ExamSessionService service) {
+        this.service = service;
     }
 
-    @GetMapping("/{sessionId}")
-    public ExamSession getSession(@PathVariable Long sessionId) {
-        return examSessionService.getSession(sessionId);
+    @PostMapping
+    public ExamSession create(@RequestBody ExamSession session) {
+        return service.create(session);
+    }
+
+    @GetMapping
+    public List<ExamSession> list() {
+        return service.list();
+    }
+
+    @GetMapping("/{id}")
+    public ExamSession get(@PathVariable Long id) {
+        return service.get(id);
     }
 }

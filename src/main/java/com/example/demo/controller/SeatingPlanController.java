@@ -1,24 +1,33 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ExamSession;
-import com.example.demo.service.ExamSessionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.model.SeatingPlan;
+import com.example.demo.service.SeatingPlanService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/sessions")
-public class ExamSessionController {
+@RequestMapping("/plans")
+public class SeatingPlanController {
 
-    @Autowired
-    private ExamSessionService examSessionService;
+    private final SeatingPlanService service;
 
-    @PostMapping("/createsession")
-    public ExamSession createSession(@RequestBody ExamSession session) {
-        return examSessionService.createSession(session);
+    public SeatingPlanController(SeatingPlanService service) {
+        this.service = service;
     }
 
-    @GetMapping("/{sessionId}")
-    public ExamSession getSession(@PathVariable Long sessionId) {
-        return examSessionService.getSession(sessionId);
+    @PostMapping("/{sessionId}")
+    public SeatingPlan create(@PathVariable Long sessionId) {
+        return service.create(sessionId);
+    }
+
+    @GetMapping
+    public List<SeatingPlan> list() {
+        return service.list();
+    }
+
+    @GetMapping("/{id}")
+    public SeatingPlan get(@PathVariable Long id) {
+        return service.get(id);
     }
 }

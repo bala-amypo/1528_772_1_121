@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,16 +10,24 @@ import java.util.List;
 @RequestMapping("/rooms")
 public class ExamRoomController {
 
-    @Autowired
-    private ExamRoomService examRoomService;
+    private final ExamRoomService service;
 
-    @PostMapping("/addroom")
-    public ExamRoom addRoom(@RequestBody ExamRoom room) {
-        return examRoomService.addRoom(room);
+    public ExamRoomController(ExamRoomService service) {
+        this.service = service;
     }
 
-    @GetMapping("/getallroom")
-    public List<ExamRoom> getAllRooms() {
-        return examRoomService.getAllRooms();
+    @PostMapping
+    public ExamRoom add(@RequestBody ExamRoom room) {
+        return service.add(room);
+    }
+
+    @GetMapping
+    public List<ExamRoom> list() {
+        return service.list();
+    }
+
+    @GetMapping("/{id}")
+    public ExamRoom get(@PathVariable Long id) {
+        return service.get(id);
     }
 }

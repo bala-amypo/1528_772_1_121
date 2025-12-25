@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,16 +10,24 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService service;
 
-    @PostMapping("/addstud")
-    public Student addStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    public StudentController(StudentService service) {
+        this.service = service;
     }
 
-    @GetMapping("getallstud")
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    @PostMapping
+    public Student add(@RequestBody Student student) {
+        return service.add(student);
+    }
+
+    @GetMapping
+    public List<Student> list() {
+        return service.list();
+    }
+
+    @GetMapping("/{id}")
+    public Student get(@PathVariable Long id) {
+        return service.get(id);
     }
 }
