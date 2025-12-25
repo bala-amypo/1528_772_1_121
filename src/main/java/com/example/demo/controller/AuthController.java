@@ -7,6 +7,7 @@ import com.example.demo.exception.ApiException;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,20 +28,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest req) {
-        User user = User.builder()
-                .name(req.getName())
-                .email(req.getEmail())
-                .password(req.getPassword())
-                .role(req.getRole())
-                .build();
-
-        return service.register(user);
+    public ResponseEntity<User> register(@RequestBody RegisterRequest req) {
+        User user = new User();
+        user.setName(req.getName());
+        user.setEmail(req.getEmail());
+        user.setPassword(req.getPassword());
+        user.setRole(req.getRole());
+        return ResponseEntity.ok(service.register(user));
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest req) {
-
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
         User user = service.findByEmail(req.getEmail());
 
         if (!encoder.matches(req.getPassword(), user.getPassword())) {
@@ -53,11 +51,8 @@ public class AuthController {
                 user.getRole()
         );
 
-        return new AuthResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
+        return ResponseEntity.ok(
+                new AuthResponse(token, user.getId(), user.getEmail(), user.getRole())
         );
     }
 }

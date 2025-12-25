@@ -18,8 +18,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> add(@RequestBody Student s) {
-        return ResponseEntity.ok(ctrl.addStudent(s));
+    public ResponseEntity<Student> add(@RequestBody Student student) {
+        return ResponseEntity.ok(ctrl.addStudent(student));
     }
 
     @GetMapping

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,17 +18,17 @@ public class ExamSessionController {
     }
 
     @PostMapping
-    public ExamSession create(@RequestBody ExamSession session) {
-        return ctrl.create(session);
+    public ResponseEntity<ExamSession> create(@RequestBody ExamSession session) {
+        return ResponseEntity.ok(ctrl.create(session));
     }
 
     @GetMapping
-    public List<ExamSession> list() {
-        return ctrl.list();
+    public ResponseEntity<List<ExamSession>> list() {
+        return ResponseEntity.ok(ctrl.list());
     }
 
     @GetMapping("/{id}")
-    public ExamSession get(@PathVariable Long id) {
-        return ctrl.get(id);
+    public ResponseEntity<ExamSession> get(@PathVariable Long id) {
+        return ResponseEntity.ok(ctrl.get(id));
     }
 }
