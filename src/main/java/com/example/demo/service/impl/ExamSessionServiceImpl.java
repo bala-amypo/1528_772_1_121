@@ -18,18 +18,18 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     }
 
     @Override
-    public ExamSession createSession(ExamSession session) {
+    public ExamSession create(ExamSession session) {
         return repository.save(session);
     }
 
     @Override
-    public ExamSession getSession(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ApiException("Session not found"));
+    public List<ExamSession> list() {
+        return repository.findAll();
     }
 
     @Override
-    public List<ExamSession> listSessions() {
-        return repository.findAll();
+    public ExamSession get(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ApiException("Session not found"));
     }
 }

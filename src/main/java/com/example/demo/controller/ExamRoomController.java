@@ -18,8 +18,8 @@ public class ExamRoomController {
     }
 
     @PostMapping
-    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom r) {
-        return ResponseEntity.ok(ctrl.addRoom(r));
+    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom room) {
+        return ResponseEntity.ok(ctrl.addRoom(room));
     }
 
     @GetMapping
