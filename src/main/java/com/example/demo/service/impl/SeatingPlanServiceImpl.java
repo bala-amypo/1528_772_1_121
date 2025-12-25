@@ -11,25 +11,31 @@ import java.util.List;
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
-    private final SeatingPlanRepository repo;
+    private final SeatingPlanRepository planRepo;
+    private final ExamSessionRepository sessionRepo;
+    private final ExamRoomRepository roomRepo;
 
-    public SeatingPlanServiceImpl(SeatingPlanRepository repo) {
-        this.repo = repo;
+    public SeatingPlanServiceImpl(
+            SeatingPlanRepository planRepo,
+            ExamSessionRepository sessionRepo,
+            ExamRoomRepository roomRepo) {
+        this.planRepo = planRepo;
+        this.sessionRepo = sessionRepo;
+        this.roomRepo = roomRepo;
     }
 
-    @Override
-    public SeatingPlan create(Long sessionId) {
-        throw new ApiException("Not implemented");
+    public SeatingPlan generatePlan(Long sessionId) {
+        SeatingPlan plan = new SeatingPlan();
+        plan.setExamSession(sessionRepo.findById(sessionId).orElseThrow());
+        return planRepo.save(plan);
     }
 
-    @Override
-    public List<SeatingPlan> list() {
-        return repo.findAll();
+    public SeatingPlan getPlan(Long id) {
+        return planRepo.findById(id).orElseThrow();
     }
 
-    @Override
-    public SeatingPlan get(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ApiException("Plan not found"));
+    public List<SeatingPlan> getPlansBySession(Long sessionId) {
+        return planRepo.findByExamSessionId(sessionId);
     }
 }
+

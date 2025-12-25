@@ -11,25 +11,17 @@ import java.util.List;
 @Service
 public class ExamSessionServiceImpl implements ExamSessionService {
 
-    private final ExamSessionRepository repo;
+    private final ExamSessionRepository repository;
 
-    public ExamSessionServiceImpl(ExamSessionRepository repo) {
-        this.repo = repo;
+    public ExamSessionServiceImpl(ExamSessionRepository repository) {
+        this.repository = repository;
     }
 
-    @Override
-    public ExamSession create(ExamSession session) {
-        return repo.save(session);
+    public ExamSession createSession(ExamSession session) {
+        return repository.save(session);
     }
 
-    @Override
-    public List<ExamSession> list() {
-        return repo.findAll();
-    }
-
-    @Override
-    public ExamSession get(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ApiException("Session not found"));
+    public ExamSession getSession(Long id) {
+        return repository.findById(id).orElseThrow();
     }
 }

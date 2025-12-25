@@ -32,17 +32,18 @@ public class JwtTokenProvider {
                 .getBody();
     }
 
-    public Long getUserId(String token) {
-        return getClaims(token).get("userId", Long.class);
+    public Long getUserIdFromToken(String token) {
+    return getClaims(token).get("userId", Long.class);
     }
 
-    public String getEmail(String token) {
+    public String getEmailFromToken(String token) {
         return getClaims(token).get("email", String.class);
     }
 
-    public String getRole(String token) {
+    public String getRoleFromToken(String token) {
         return getClaims(token).get("role", String.class);
     }
+
 
     public boolean validateToken(String token) {
         try {
