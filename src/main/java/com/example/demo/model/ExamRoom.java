@@ -23,14 +23,12 @@ public class ExamRoom {
 
     public ExamRoom() {}
 
-    // getters
     public Long getId() { return id; }
     public String getRoomNumber() { return roomNumber; }
     public Integer getCapacity() { return capacity; }
     public Integer getRows() { return rows; }
     public Integer getColumns() { return columns; }
 
-    // setters
     public void setId(Long id) { this.id = id; }
     public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
     public void setCapacity(Integer capacity) { this.capacity = capacity; }
@@ -38,10 +36,11 @@ public class ExamRoom {
     public void setColumns(Integer columns) { this.columns = columns; }
 
     public void ensureCapacityMatches() {
-        this.capacity = rows * columns;
+        if (rows != null && columns != null) {
+            this.capacity = rows * columns;
+        }
     }
 
-    // ===== BUILDER =====
     public static Builder builder() {
         return new Builder();
     }
