@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface SeatingPlanService {
 
-    SeatingPlan generatePlan(Long sessionId);
+    SeatingPlan create(Long sessionId);
 
-    SeatingPlan getPlan(Long planId);
+    List<SeatingPlan> list();
 
-    List<SeatingPlan> getPlansBySession(Long sessionId);
+    SeatingPlan get(Long id);
 }
