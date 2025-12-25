@@ -17,18 +17,12 @@ public class ExamRoomController {
     }
 
     @PostMapping
-    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom room) {
-        return ResponseEntity.ok(service.addRoom(room));
+    public ExamRoom addRoom(@RequestBody ExamRoom room) {
+        return service.addRoom(room);
     }
 
     @GetMapping
-    public ResponseEntity<List<ExamRoom>> list() {
-        return ResponseEntity.ok(service.getAllRooms());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ExamRoom> get(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getRoom(id));
+    public List<ExamRoom> getAllRooms() {
+        return service.getAllRooms();
     }
 }
-

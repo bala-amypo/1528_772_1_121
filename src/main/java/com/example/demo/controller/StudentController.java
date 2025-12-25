@@ -17,18 +17,12 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> add(@RequestBody Student student) {
-        return ResponseEntity.ok(service.addStudent(student));
+    public Student addStudent(@RequestBody Student student) {
+        return service.addStudent(student);
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> list() {
-        return ResponseEntity.ok(service.getAllStudents());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Student> get(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getStudent(id));
+    public List<Student> getAllStudents() {
+        return service.getAllStudents();
     }
 }
-
