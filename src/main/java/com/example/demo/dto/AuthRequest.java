@@ -8,8 +8,30 @@ public class AuthRequest {
     public AuthRequest() {}
 
     public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
     public String getPassword() { return password; }
+
+    public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final AuthRequest r = new AuthRequest();
+
+        public Builder email(String email) {
+            r.setEmail(email);
+            return this;
+        }
+
+        public Builder password(String password) {
+            r.setPassword(password);
+            return this;
+        }
+
+        public AuthRequest build() {
+            return r;
+        }
+    }
 }

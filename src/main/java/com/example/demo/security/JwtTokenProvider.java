@@ -11,24 +11,35 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    private static final String SECRET_KEY = "secret-key-12345";
-    private static final long EXPIRATION_TIME = 86400000;
+    private String secret;
+    private long expiration;
+
+    // ✅ DEFAULT constructor for Spring
+    public JwtTokenProvider() {
+        this.secret = "secret-key-12345";
+        this.expiration = 86400000; // 1 day
+    }
+
+    // ✅ REQUIRED by test cases
+    public JwtTokenProvider(String secret, int expirationSeconds) {
+        this.secret = secret;
+        this.expiration = expirationSeconds * 1000L;
+    }
 
     public String generateToken(Long userId, String email, String role) {
-
         return Jwts.builder()
                 .claim("userId", userId)
                 .claim("email", email)
                 .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
     public Claims getClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
+                .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
     }
