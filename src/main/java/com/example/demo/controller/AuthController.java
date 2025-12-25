@@ -16,14 +16,14 @@ public class AuthController {
 
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder encoder;
 
     public AuthController(UserService userService,
                           JwtTokenProvider jwtTokenProvider,
-                          BCryptPasswordEncoder passwordEncoder) {
+                          BCryptPasswordEncoder encoder) {
         this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.passwordEncoder = passwordEncoder;
+        this.encoder = encoder;
     }
 
     @PostMapping("/register")
@@ -39,14 +39,17 @@ public class AuthController {
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest request) {
         User user = userService.findByEmail(request.getEmail());
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+
+        if (!encoder.matches(request.getPassword(), user.getPassword())) {
             throw new ApiException("Invalid credentials");
         }
+
         String token = jwtTokenProvider.generateToken(
                 user.getId(),
                 user.getEmail(),
                 user.getRole()
         );
+
         return new AuthResponse(
                 token,
                 user.getId(),
