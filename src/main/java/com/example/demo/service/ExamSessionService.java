@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface ExamSessionService {
 
-    ExamSession createSession(ExamSession session);
+    ExamSession create(ExamSession session);
 
-    ExamSession getSession(Long id);
+    List<ExamSession> list();
 
-    List<ExamSession> listSessions();
+    ExamSession get(Long id);
 }
