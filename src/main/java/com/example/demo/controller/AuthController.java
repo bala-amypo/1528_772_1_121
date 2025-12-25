@@ -28,21 +28,36 @@ public class AuthController {
 
     @PostMapping("/register")
     public User register(@RequestBody RegisterRequest req) {
-        User u = new User();
-        u.setName(req.getName());
-        u.setEmail(req.getEmail());
-        u.setPassword(req.getPassword());
-        u.setRole(req.getRole());
-        return service.register(u);
+        User user = User.builder()
+                .name(req.getName())
+                .email(req.getEmail())
+                .password(req.getPassword())
+                .role(req.getRole())
+                .build();
+
+        return service.register(user);
     }
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest req) {
-        User u = service.findByEmail(req.getEmail());
-        if (!encoder.matches(req.getPassword(), u.getPassword())) {
+
+        User user = service.findByEmail(req.getEmail());
+
+        if (!encoder.matches(req.getPassword(), user.getPassword())) {
             throw new ApiException("Invalid credentials");
         }
-        String token = jwt.generateToken(u.getId(), u.getEmail(), u.getRole());
-        return new AuthResponse(token, u.getId(), u.getEmail(), u.getRole());
+
+        String token = jwt.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return new AuthResponse(
+                token,
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
     }
 }
