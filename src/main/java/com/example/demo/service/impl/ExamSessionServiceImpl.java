@@ -6,6 +6,8 @@ import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExamSessionServiceImpl implements ExamSessionService {
 
@@ -25,5 +27,9 @@ public class ExamSessionServiceImpl implements ExamSessionService {
         return repository.findById(id)
                 .orElseThrow(() -> new ApiException("Session not found"));
     }
+
+    @Override
+    public List<ExamSession> listSessions() {
+        return repository.findAll();
+    }
 }
- 

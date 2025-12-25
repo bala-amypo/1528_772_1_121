@@ -21,13 +21,13 @@ public class ExamSessionController {
         return ctrl.createSession(s);
     }
 
-    @GetMapping
-    public List<ExamSession> list() {
-        return ctrl.list();
-    }
-
     @GetMapping("/{id}")
     public ExamSession get(@PathVariable Long id) {
         return ctrl.getSession(id);
+    }
+
+    @GetMapping
+    public List<ExamSession> list() {
+        return ctrl.listSessions();
     }
 }
