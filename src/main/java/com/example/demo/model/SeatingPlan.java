@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,11 +12,9 @@ public class SeatingPlan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "session_id")
     private ExamSession examSession;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
     private ExamRoom room;
 
     @Column(columnDefinition = "TEXT")
@@ -25,8 +22,7 @@ public class SeatingPlan {
 
     private LocalDateTime generatedAt;
 
-    public SeatingPlan() {
-    }
+    public SeatingPlan() {}
 
     @PrePersist
     public void onCreate() {
@@ -35,35 +31,34 @@ public class SeatingPlan {
         }
     }
 
-    public Long getId() {
-        return id;
+    // getters
+    public Long getId() { return id; }
+    public ExamSession getExamSession() { return examSession; }
+    public ExamRoom getRoom() { return room; }
+    public String getArrangementJson() { return arrangementJson; }
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
+
+    // setters
+    public void setId(Long id) { this.id = id; }
+    public void setExamSession(ExamSession examSession) { this.examSession = examSession; }
+    public void setRoom(ExamRoom room) { this.room = room; }
+    public void setArrangementJson(String arrangementJson) { this.arrangementJson = arrangementJson; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
+
+    // ===== BUILDER =====
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public ExamSession getExamSession() {
-        return examSession;
-    }
+    public static class Builder {
+        private final SeatingPlan p = new SeatingPlan();
 
-    public void setExamSession(ExamSession examSession) {
-        this.examSession = examSession;
-    }
+        public Builder id(Long id) { p.setId(id); return this; }
+        public Builder examSession(ExamSession s) { p.setExamSession(s); return this; }
+        public Builder room(ExamRoom r) { p.setRoom(r); return this; }
+        public Builder arrangementJson(String j) { p.setArrangementJson(j); return this; }
+        public Builder generatedAt(LocalDateTime t) { p.setGeneratedAt(t); return this; }
 
-    public ExamRoom getRoom() {
-        return room;
-    }
-
-    public void setRoom(ExamRoom room) {
-        this.room = room;
-    }
-
-    public String getArrangementJson() {
-        return arrangementJson;
-    }
-
-    public void setArrangementJson(String arrangementJson) {
-        this.arrangementJson = arrangementJson;
-    }
-
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
+        public SeatingPlan build() { return p; }
     }
 }
