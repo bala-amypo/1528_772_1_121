@@ -11,29 +11,30 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    private final String secret = "secret-key-12345";
-    private final long expiration = 86400000;
+    private static final String SECRET_KEY = "secret-key-12345";
+    private static final long EXPIRATION_TIME = 86400000;
 
     public String generateToken(Long userId, String email, String role) {
+
         return Jwts.builder()
                 .claim("userId", userId)
                 .claim("email", email)
                 .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
 
     public Claims getClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody();
     }
 
     public Long getUserIdFromToken(String token) {
-    return getClaims(token).get("userId", Long.class);
+        return getClaims(token).get("userId", Long.class);
     }
 
     public String getEmailFromToken(String token) {
@@ -43,7 +44,6 @@ public class JwtTokenProvider {
     public String getRoleFromToken(String token) {
         return getClaims(token).get("role", String.class);
     }
-
 
     public boolean validateToken(String token) {
         try {
