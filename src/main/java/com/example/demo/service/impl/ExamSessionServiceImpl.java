@@ -13,7 +13,10 @@ public class ExamSessionServiceImpl implements ExamSessionService {
 
     private final ExamSessionRepository repository;
 
-    public ExamSessionServiceImpl(ExamSessionRepository repository) {
+    public ExamSessionServiceImpl(
+        ExamSessionRepository repository,
+        StudentRepository studentRepository
+    ) {
         this.repository = repository;
     }
 
