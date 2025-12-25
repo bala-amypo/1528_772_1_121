@@ -19,7 +19,6 @@ public class ExamSessionServiceImpl implements ExamSessionService {
         StudentRepository studentRepository
     ) {
         this.repository = repository;
-        this.studentRepository = studentRepository;
     }
 
     @Override
