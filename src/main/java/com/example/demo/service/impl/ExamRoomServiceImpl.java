@@ -19,6 +19,16 @@ public class ExamRoomServiceImpl implements ExamRoomService {
 
     @Override
     public ExamRoom addRoom(ExamRoom room) {
+
+        if (room.getRows() == null || room.getColumns() == null
+                || room.getRows() <= 0 || room.getColumns() <= 0) {
+            throw new ApiException("Invalid rows or columns");
+        }
+
+        if (repository.findByRoomNumber(room.getRoomNumber()).isPresent()) {
+            throw new ApiException("Room number already exists");
+        }
+
         room.ensureCapacityMatches();
         return repository.save(room);
     }
