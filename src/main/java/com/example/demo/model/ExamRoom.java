@@ -15,8 +15,10 @@ public class ExamRoom {
 
     private Integer capacity;
 
+    @Column(name = "room_rows")
     private Integer rows;
 
+    @Column(name = "room_columns")
     private Integer columns;
 
     public ExamRoom() {
