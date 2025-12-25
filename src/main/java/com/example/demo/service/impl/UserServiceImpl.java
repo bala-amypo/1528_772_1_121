@@ -10,19 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final UserRepository repository;
+    private final BCryptPasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    public UserServiceImpl(UserRepository repository,
+                           BCryptPasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
     }
 
     @Override
     public User register(User user) {
 
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
             throw new ApiException("Email already exists");
         }
 
@@ -30,14 +30,13 @@ public class UserServiceImpl implements UserService {
             user.setRole("STAFF");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        return userRepository.save(user);
+        user.setPassword(encoder.encode(user.getPassword()));
+        return repository.save(user);
     }
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
+        return repository.findByEmail(email)
                 .orElseThrow(() -> new ApiException("User not found"));
     }
 }

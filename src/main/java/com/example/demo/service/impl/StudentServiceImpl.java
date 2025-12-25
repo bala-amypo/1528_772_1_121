@@ -17,15 +17,26 @@ public class StudentServiceImpl implements StudentService {
         this.repository = repository;
     }
 
+    @Override
     public Student addStudent(Student student) {
+
+        if (student.getRollNumber() == null || student.getRollNumber().isEmpty()) {
+            throw new ApiException("Invalid student roll number");
+        }
+
+        if (repository.findByRollNumber(student.getRollNumber()).isPresent()) {
+            throw new ApiException("Roll number already exists");
+        }
+
+        if (student.getYear() == null || student.getYear() < 1 || student.getYear() > 5) {
+            throw new ApiException("Invalid year");
+        }
+
         return repository.save(student);
     }
 
+    @Override
     public List<Student> getAllStudents() {
         return repository.findAll();
-    }
-
-    public Student getStudent(Long id) {
-        return repository.findById(id).orElseThrow();
     }
 }
