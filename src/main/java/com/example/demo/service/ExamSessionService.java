@@ -4,7 +4,7 @@ import com.example.demo.model.ExamSession;
 import java.util.List;
 
 public interface ExamSessionService {
-    ExamSession create(ExamSession session);
-    List<ExamSession> list();
-    ExamSession get(Long id);
+    ExamSession createSession(ExamSession session);
+    ExamSession getSession(Long id);
 }
+

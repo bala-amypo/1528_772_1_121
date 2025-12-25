@@ -4,7 +4,7 @@ import com.example.demo.model.Student;
 import java.util.List;
 
 public interface StudentService {
-    Student add(Student student);
-    List<Student> list();
-    Student get(Long id);
+    Student addStudent(Student student);
+    List<Student> getAllStudents();
+    Student getStudent(Long id);
 }

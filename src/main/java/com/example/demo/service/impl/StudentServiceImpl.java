@@ -11,31 +11,21 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentRepository repo;
+    private final StudentRepository repository;
 
-    public StudentServiceImpl(StudentRepository repo) {
-        this.repo = repo;
+    public StudentServiceImpl(StudentRepository repository) {
+        this.repository = repository;
     }
 
-    @Override
-    public Student add(Student student) {
-        if (student.getRollNumber() == null) {
-            throw new ApiException("Invalid student");
-        }
-        if (repo.findByRollNumber(student.getRollNumber()).isPresent()) {
-            throw new ApiException("Roll number exists");
-        }
-        return repo.save(student);
+    public Student addStudent(Student student) {
+        return repository.save(student);
     }
 
-    @Override
-    public List<Student> list() {
-        return repo.findAll();
+    public List<Student> getAllStudents() {
+        return repository.findAll();
     }
 
-    @Override
-    public Student get(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ApiException("Student not found"));
+    public Student getStudent(Long id) {
+        return repository.findById(id).orElseThrow();
     }
 }

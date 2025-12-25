@@ -4,7 +4,8 @@ import com.example.demo.model.ExamRoom;
 import java.util.List;
 
 public interface ExamRoomService {
-    ExamRoom add(ExamRoom room);
-    List<ExamRoom> list();
-    ExamRoom get(Long id);
+    ExamRoom addRoom(ExamRoom room);
+    List<ExamRoom> getAllRooms();
+    ExamRoom getRoom(Long id);
 }
+
