@@ -10,4 +10,7 @@ public interface SeatingPlanService {
     SeatingPlan getPlan(Long id);
 
     List<SeatingPlan> getPlansBySession(Long sessionId);
+
+    List<SeatingPlan> listByExamId(long examId);
+
 }

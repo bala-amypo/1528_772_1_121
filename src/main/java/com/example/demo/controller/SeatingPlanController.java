@@ -31,4 +31,12 @@ public class SeatingPlanController {
     public ResponseEntity<List<SeatingPlan>> getBySession(@PathVariable Long sessionId) {
         return ResponseEntity.ok(ctrl.getPlansBySession(sessionId));
     }
+
+    @GetMapping("/list/{examId}")
+    public ResponseEntity<?> list(@PathVariable long examId) {
+        return ResponseEntity.ok(
+                seatingPlanService.listByExamId(examId)
+        );
+    }
+
 }
