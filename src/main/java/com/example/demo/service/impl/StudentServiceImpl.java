@@ -21,15 +21,23 @@ public class StudentServiceImpl implements StudentService {
     public Student addStudent(Student student) {
 
         if (student.getRollNumber() == null || student.getRollNumber().isBlank()) {
-            throw new ApiException("Invalid student roll number");
+            throw new ApiException("Invalid roll number");
         }
 
-        if (repository.findByRollNumber(student.getRollNumber()).isPresent()) {
-            throw new ApiException("Roll number already exists");
+        if (student.getName() == null || student.getName().isBlank()) {
+            throw new ApiException("Invalid student name");
+        }
+
+        if (student.getDepartment() == null || student.getDepartment().isBlank()) {
+            throw new ApiException("Invalid department");
         }
 
         if (student.getYear() == null || student.getYear() < 1 || student.getYear() > 5) {
             throw new ApiException("Invalid year");
+        }
+
+        if (repository.findByRollNumber(student.getRollNumber()).isPresent()) {
+            throw new ApiException("Roll number already exists");
         }
 
         return repository.save(student);
