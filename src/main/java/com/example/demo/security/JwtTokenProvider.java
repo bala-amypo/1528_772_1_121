@@ -14,13 +14,11 @@ public class JwtTokenProvider {
     private String secret;
     private long expiration;
 
-    // ✅ DEFAULT constructor for Spring
     public JwtTokenProvider() {
         this.secret = "secret-key-12345";
-        this.expiration = 86400000; // 1 day
+        this.expiration = 86400000;
     }
 
-    // ✅ REQUIRED by test cases
     public JwtTokenProvider(String secret, int expirationSeconds) {
         this.secret = secret;
         this.expiration = expirationSeconds * 1000L;
