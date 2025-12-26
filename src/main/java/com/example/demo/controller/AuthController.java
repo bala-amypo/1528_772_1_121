@@ -30,7 +30,6 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    // ✅ REQUIRED BY TEST CASES (DO NOT REMOVE)
     public AuthController(UserService service,
                           AuthenticationManager authManager,
                           JwtTokenProvider jwt,
