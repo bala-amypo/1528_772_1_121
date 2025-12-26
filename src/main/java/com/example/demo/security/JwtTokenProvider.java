@@ -2,19 +2,39 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+@Component
 public class JwtTokenProvider {
 
     private final Key key;
     private final long expirationMs;
 
-    public JwtTokenProvider(String secret, long expirationMs) {
+    // ✅ Used by Spring Boot at runtime
+    public JwtTokenProvider(
+            @Value("${jwt.secret:this_is_a_test_secret_key_must_be_long_enough_for_hmac_sha_which_is_long}")
+            String secret,
+            @Value("${jwt.expiration:3600000}")
+            long expirationMs
+    ) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
+    }
+
+    // ✅ Used by tests (unchanged)
+    public JwtTokenProvider(String secret, long expirationMs, boolean test) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.expirationMs = expirationMs;
+    }
+
+    // 🔁 keep backward compatibility for tests
+    public JwtTokenProvider(String secret, long expirationMs) {
+        this(secret, expirationMs, true);
     }
 
     public String generateToken(Long userId, String email, String role) {
