@@ -38,5 +38,4 @@ public class SeatingPlanController {
                 seatingPlanService.listByExamId(examId)
         );
     }
-
 }
