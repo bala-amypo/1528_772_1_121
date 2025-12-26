@@ -15,7 +15,7 @@ public class JwtTokenProvider {
     private final Key key;
     private final long expirationMs;
 
-    // ✅ Used by Spring Boot at runtime
+    // ✅ ONE constructor only (used by BOTH Spring & tests)
     public JwtTokenProvider(
             @Value("${jwt.secret:this_is_a_test_secret_key_must_be_long_enough_for_hmac_sha_which_is_long}")
             String secret,
@@ -24,17 +24,6 @@ public class JwtTokenProvider {
     ) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
-    }
-
-    // ✅ Used by tests (unchanged)
-    public JwtTokenProvider(String secret, long expirationMs, boolean test) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        this.expirationMs = expirationMs;
-    }
-
-    // 🔁 keep backward compatibility for tests
-    public JwtTokenProvider(String secret, long expirationMs) {
-        this(secret, expirationMs, true);
     }
 
     public String generateToken(Long userId, String email, String role) {
