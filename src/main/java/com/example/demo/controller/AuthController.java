@@ -21,6 +21,7 @@ public class AuthController {
     private final JwtTokenProvider jwt;
     private final BCryptPasswordEncoder encoder;
 
+    @Autowired
     public AuthController(UserService service,
                           JwtTokenProvider jwt,
                           BCryptPasswordEncoder encoder) {
