@@ -28,9 +28,9 @@ public class StudentServiceImpl implements StudentService {
             throw new ApiException("Invalid student name");
         }
 
-        if (student.getDepartment() == null || student.getDepartment().isBlank()) {
-            throw new ApiException("Invalid department");
-        }
+        //if (student.getDepartment() == null || student.getDepartment().isBlank()) {
+        //    throw new ApiException("Invalid department");
+        //}
 
         if (student.getYear() == null || student.getYear() < 1 || student.getYear() > 5) {
             throw new ApiException("Invalid year");
