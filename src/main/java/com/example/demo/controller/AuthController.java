@@ -22,7 +22,6 @@ public class AuthController {
     private final JwtTokenProvider jwt;
     private final BCryptPasswordEncoder encoder;
 
-    // ✅ THIS is the constructor Spring Boot must use
     @Autowired
     public AuthController(UserService service,
                           JwtTokenProvider jwt,
@@ -32,7 +31,6 @@ public class AuthController {
         this.encoder = encoder;
     }
 
-    // ✅ This constructor is ONLY for testcases
     public AuthController(UserService service,
                           AuthenticationManager authManager,
                           JwtTokenProvider jwt,
